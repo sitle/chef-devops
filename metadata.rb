@@ -5,3 +5,6 @@ license 'Apache 2.0'
 description 'Installs/Configures devops'
 long_description 'Installs/Configures devops'
 version '0.1.0'
+
+depends 'apt'
+depends 'apache2'
