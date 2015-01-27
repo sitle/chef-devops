@@ -11,10 +11,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = 'debian-7-chef'
   config.vm.network :private_network, ip: '172.28.128.3'
   config.berkshelf.enabled = true
-  
+
   config.cache.auto_detect = true
   config.cache.scope = :box
-  
+
   c.hostmanager.enabled = true
   c.hostmanager.manage_host = true
   c.hostmanager.ignore_private_ip = false
@@ -23,10 +23,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provision :chef_solo do |chef|
     chef.json = {
-      mysql: {
-        server_root_password: 'rootpass',
-        server_debian_password: 'debpass',
-        server_repl_password: 'replpass'
+      devops: {
+        chef_domain: 'chef.repository.dev',
+        vagrant_domain: 'vagrant.repository.dev',
+        software_domain: 'software.repository.dev',
+        preseed_domain: 'preseed.repository.dev',
+        kickstart_domain: 'kickstart.repository.dev',
+        yum_rhel_domain: 'yum.rhel.repository.dev',
+        yum_oel_domain: 'yum.oel.repository.dev',
+        yum_centos_domain: 'yum.centos.repository.dev'
       }
     }
 
