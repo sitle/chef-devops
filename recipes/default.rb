@@ -16,6 +16,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# Install reprepro package
+
+package 'reprepro' do
+  action :install
+end
 
 # Create directories for chef repositories
 #
