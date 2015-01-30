@@ -1,0 +1,41 @@
+<VirtualHost *:80>
+  ServerName <%= node['devops']['preseed_domain'] %>
+  DocumentRoot /var/www/preseed
+
+  <Directory /var/www/preseed>
+    Options FollowSymLinks Indexes
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+  </Directory>
+
+  <Directory />
+    Options FollowSymLinks Indexes
+    AllowOverride None
+  </Directory>
+
+  <Location /server-status>
+    SetHandler server-status
+    Order Deny,Allow
+    Deny from all
+    Allow from 127.0.0.1
+  </Location>
+
+  RewriteEngine On
+  LogLevel info
+  RewriteLog /var/log/apache2/preseed-rewrite.log
+  RewriteLogLevel 0
+
+  ErrorLog /var/log/apache2/preseed-error.log
+  CustomLog /var/log/apache2/preseed-access.log combined
+
+
+  # Canonical host, <%= node['devops']['preseed_domain'] %>
+  RewriteCond %{HTTP_HOST}   !^<%= node['devops']['preseed_domain'] %> [NC]
+  RewriteCond %{HTTP_HOST}   !^$
+  RewriteRule ^/(.*)$        http://<%= node['devops']['preseed_domain'] %>/$1 [L,R=301]
+
+  RewriteCond %{DOCUMENT_ROOT}/system/maintenance.html -f
+  RewriteCond %{SCRIPT_FILENAME} !maintenance.html
+  RewriteRule ^.*$ /system/maintenance.html [L,R=503]
+</VirtualHost>

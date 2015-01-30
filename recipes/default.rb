@@ -279,54 +279,63 @@ end
 #
 web_app 'chef' do
   server_name node['devops']['chef_domain']
+  template 'chef.conf.erb'
   docroot '/var/www/chef'
-  cookbook 'apache2'
+  cookbook 'devops'
 end
 
 web_app 'iso' do
   server_name node['devops']['iso_domain']
+  template 'iso.conf.erb'
   docroot '/var/www/iso'
-  cookbook 'apache2'
+  cookbook 'devops'
 end
 
 web_app 'vagrant' do
   server_name node['devops']['vagrant_domain']
+  template 'vagrant.conf.erb'
   docroot '/var/www/vagrant'
-  cookbook 'apache2'
+  cookbook 'devops'
 end
 
 web_app 'software' do
   server_name node['devops']['software_domain']
+  template 'software.conf.erb'
   docroot '/var/www/software'
-  cookbook 'apache2'
+  cookbook 'devops'
 end
 
 web_app 'preseed' do
   server_name node['devops']['preseed_domain']
+  template 'preseed.conf.erb'
   docroot '/var/www/preseed'
-  cookbook 'apache2'
+  cookbook 'devops'
 end
 
 web_app 'kickstart' do
   server_name node['devops']['kickstart_domain']
+  template 'kickstart.conf.erb'
   docroot '/var/www/kickstart'
-  cookbook 'apache2'
+  cookbook 'devops'
 end
 
 web_app 'yum-rhel' do
   server_name node['devops']['yum_rhel_domain']
+  template 'yum-rhel.conf.erb'
   docroot '/var/www/yum/rhel'
-  cookbook 'apache2'
+  cookbook 'devops'
 end
 
 web_app 'yum-oel' do
   server_name node['devops']['yum_oel_domain']
+  template 'yum-oel.conf.erb'
   docroot '/var/www/yum/oel'
-  cookbook 'apache2'
+  cookbook 'devops'
 end
 
 web_app 'yum-centos' do
   server_name node['devops']['yum_centos_domain']
+  template 'yum-centos.conf.erb'
   docroot '/var/www/yum/centos'
-  cookbook 'apache2'
+  cookbook 'devops'
 end

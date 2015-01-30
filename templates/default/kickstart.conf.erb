@@ -1,0 +1,41 @@
+<VirtualHost *:80>
+  ServerName <%= node['devops']['kickstart_domain'] %>
+  DocumentRoot /var/www/kickstart
+
+  <Directory /var/www/kickstart>
+    Options FollowSymLinks Indexes
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+  </Directory>
+
+  <Directory />
+    Options FollowSymLinks Indexes
+    AllowOverride None
+  </Directory>
+
+  <Location /server-status>
+    SetHandler server-status
+    Order Deny,Allow
+    Deny from all
+    Allow from 127.0.0.1
+  </Location>
+
+  RewriteEngine On
+  LogLevel info
+  RewriteLog /var/log/apache2/kickstart-rewrite.log
+  RewriteLogLevel 0
+
+  ErrorLog /var/log/apache2/kickstart-error.log
+  CustomLog /var/log/apache2/kickstart-access.log combined
+
+
+  # Canonical host, <%= node['devops']['kickstart_domain'] %>
+  RewriteCond %{HTTP_HOST}   !^<%= node['devops']['kickstart_domain'] %> [NC]
+  RewriteCond %{HTTP_HOST}   !^$
+  RewriteRule ^/(.*)$        http://<%= node['devops']['kickstart_domain'] %>/$1 [L,R=301]
+
+  RewriteCond %{DOCUMENT_ROOT}/system/maintenance.html -f
+  RewriteCond %{SCRIPT_FILENAME} !maintenance.html
+  RewriteRule ^.*$ /system/maintenance.html [L,R=503]
+</VirtualHost>
