@@ -208,6 +208,15 @@ remote_file '/var/www/software/' + node['devops']['osx']['chefdk_pkg'] do
   not_if { ::File.exist?('/var/www/software/' + node['devops']['osx']['chefdk_pkg']) }
 end
 
+# Create ISO directory for packer
+#
+directory '/var/www/iso' do
+  owner 'www-data'
+  group 'www-data'
+  mode '0755'
+  action :create
+end
+
 # Create repository directory for preseed files (ubuntu/debian)
 #
 directory '/var/www/preseed/debian' do
@@ -271,6 +280,12 @@ end
 web_app 'chef' do
   server_name node['devops']['chef_domain']
   docroot '/var/www/chef'
+  cookbook 'apache2'
+end
+
+web_app 'iso' do
+  server_name node['devops']['iso_domain']
+  docroot '/var/www/iso'
   cookbook 'apache2'
 end
 

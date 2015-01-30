@@ -25,6 +25,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.json = {
       devops: {
         chef_domain: 'chef.repository.dev',
+        iso_domain: 'iso.repository.dev',
         vagrant_domain: 'vagrant.repository.dev',
         software_domain: 'software.repository.dev',
         preseed_domain: 'preseed.repository.dev',

@@ -47,6 +47,7 @@ default['devops']['osx']['virtualbox_link'] = 'http://download.virtualbox.org/vi
 # Domain definition
 #
 default['devops']['chef_domain'] = 'chef.repository.dev'
+default['devops']['iso_domain'] = 'iso.repository.dev'
 default['devops']['vagrant_domain'] = 'vagrant.repository.dev'
 default['devops']['software_domain'] = 'software.repository.dev'
 default['devops']['preseed_domain'] = 'preseed.repository.dev'
